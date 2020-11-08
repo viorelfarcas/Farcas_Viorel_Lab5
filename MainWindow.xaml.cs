@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,14 +36,20 @@ namespace Farcas_Viorel_Lab5
         tblPhoneNumbersAdapter = new PhoneNumbersDataSetTableAdapters.PhoneNumbersTableAdapter();
         Binding txtPhoneNumberBinding = new Binding();
         Binding txtSubscriberBinding = new Binding();
+        Binding txtContract_valueBinding = new Binding();
+        Binding txtContract_dateBinding = new Binding();
         public MainWindow()
         {
             InitializeComponent();
             grdMain.DataContext = phoneNumbersDataSet.PhoneNumbers;
             txtPhoneNumberBinding.Path = new PropertyPath("Phonenum");
             txtSubscriberBinding.Path = new PropertyPath("Subscriber");
+            txtContract_valueBinding.Path = new PropertyPath("Contract_value");
+            txtContract_dateBinding.Path = new PropertyPath("Contract_date");
             txtPhoneNumber.SetBinding(TextBox.TextProperty, txtPhoneNumberBinding);
             txtSubscriber.SetBinding(TextBox.TextProperty, txtSubscriberBinding);
+            txtContract_valueBinding.SetBinding(TextBox.TextProperty, txtContract_valueBinding);
+            txtContract_dateBinding.SetBinding(TextBox.TextProperty, txtContract_dateBinding);
         }
 
         private void lstPhonesLoad()
@@ -86,8 +94,12 @@ namespace Farcas_Viorel_Lab5
             txtSubscriber.IsEnabled = true;
             BindingOperations.ClearBinding(txtPhoneNumber, TextBox.TextProperty);
             BindingOperations.ClearBinding(txtSubscriber, TextBox.TextProperty);
+            BindingOperations.ClearBinding(txtContract_value, TextBox.TextProperty);
+            BindingOperations.ClearBinding(txtContract_date, TextBox.TextProperty);
             txtPhoneNumber.Text = "";
             txtSubscriber.Text = "";
+            txtContract_value.Text = "";
+            txtContract_date.Text = "";
             Keyboard.Focus(txtPhoneNumber);
         }
 
@@ -95,6 +107,8 @@ namespace Farcas_Viorel_Lab5
         {
             string tempPhonenum = txtPhoneNumber.Text.ToString();
             string tempSubscriber = txtSubscriber.Text.ToString();
+            string tempContract_value = txtContract_value.Text.ToString();
+            string tempContract_date = txtContract_date.Text.ToString();
             btnNew.IsEnabled = false;
             btnEdit.IsEnabled = false;
             btnDelete.IsEnabled = false;
@@ -107,8 +121,12 @@ namespace Farcas_Viorel_Lab5
             txtSubscriber.IsEnabled = true;
             BindingOperations.ClearBinding(txtPhoneNumber, TextBox.TextProperty);
             BindingOperations.ClearBinding(txtSubscriber, TextBox.TextProperty);
+            BindingOperations.ClearBinding(txtContract_value, TextBox.TextProperty);
+            BindingOperations.ClearBinding(txtContract_date, TextBox.TextProperty);
             txtPhoneNumber.Text = tempPhonenum;
             txtSubscriber.Text = tempSubscriber;
+            txtContract_value.Text = "";
+            txtContract_date.Text = "";
             Keyboard.Focus(txtPhoneNumber);
         }
 
@@ -117,6 +135,8 @@ namespace Farcas_Viorel_Lab5
             action = ActionState.Delete;
             string tempPhonenum = txtPhoneNumber.Text.ToString();
             string tempSubscriber = txtSubscriber.Text.ToString();
+            string tempContract_value = txtContract_value.Text.ToString();
+            string tempContract_date = txtContract_date.Text.ToString();
             btnNew.IsEnabled = false;
             btnEdit.IsEnabled = false;
             btnDelete.IsEnabled = false;
@@ -127,8 +147,12 @@ namespace Farcas_Viorel_Lab5
             btnNext.IsEnabled = false;
             BindingOperations.ClearBinding(txtPhoneNumber, TextBox.TextProperty);
             BindingOperations.ClearBinding(txtSubscriber, TextBox.TextProperty);
+            BindingOperations.ClearBinding(txtContract_value, TextBox.TextProperty);
+            BindingOperations.ClearBinding(txtContract_date, TextBox.TextProperty);
             txtPhoneNumber.Text = tempPhonenum;
             txtSubscriber.Text = tempSubscriber;
+            txtContract_value.Text = "";
+            txtContract_date.Text = "";
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -146,6 +170,8 @@ namespace Farcas_Viorel_Lab5
             txtSubscriber.IsEnabled = false;
             txtPhoneNumber.SetBinding(TextBox.TextProperty, txtPhoneNumberBinding);
             txtSubscriber.SetBinding(TextBox.TextProperty, txtSubscriberBinding);
+            txtContract_value.SetBinding(TextBox.TextProperty, txtContract_valueBinding);
+            txtContract_date.SetBinding(TextBox.TextProperty, txtContract_dateBinding);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -158,6 +184,8 @@ namespace Farcas_Viorel_Lab5
                     newRow.BeginEdit();
                     newRow["Phonenum"] = txtPhoneNumber.Text.Trim();
                     newRow["Subscriber"] = txtSubscriber.Text.Trim();
+                    newRow["Contract_value"] = txtContract_value.Text.Trim();
+                    newRow["Contract_date"] = txtContract_date.Text.Trim();
                     newRow.EndEdit();
                     phoneNumbersDataSet.PhoneNumbers.Rows.Add(newRow);
                     tblPhoneNumbersAdapter.Update(phoneNumbersDataSet.PhoneNumbers);
@@ -187,6 +215,8 @@ namespace Farcas_Viorel_Lab5
                     editRow.BeginEdit();
                     editRow["Phonenum"] = txtPhoneNumber.Text.Trim();
                     editRow["Subscriber"] = txtSubscriber.Text.Trim();
+                    newRow["Contract_value"] = txtContract_value.Text.Trim();
+                    newRow["Contract_date"] = txtContract_date.Text.Trim();
                     editRow.EndEdit();
                     tblPhoneNumbersAdapter.Update(phoneNumbersDataSet.PhoneNumbers);
                     phoneNumbersDataSet.AcceptChanges();
@@ -208,6 +238,8 @@ namespace Farcas_Viorel_Lab5
                 txtSubscriber.IsEnabled = false;
                 txtPhoneNumber.SetBinding(TextBox.TextProperty, txtPhoneNumberBinding);
                 txtSubscriber.SetBinding(TextBox.TextProperty, txtSubscriberBinding);
+                txtContract_value.SetBinding(TextBox.TextProperty, txtContract_valueBinding);
+                txtContract_date.SetBinding(TextBox.TextProperty, txtContract_dateBinding);
             }
             else
             if (action == ActionState.Delete)
@@ -236,6 +268,8 @@ namespace Farcas_Viorel_Lab5
                 txtSubscriber.IsEnabled = false;
                 txtPhoneNumber.SetBinding(TextBox.TextProperty, txtPhoneNumberBinding);
                 txtSubscriber.SetBinding(TextBox.TextProperty, txtSubscriberBinding);
+                txtContract_value.SetBinding(TextBox.TextProperty, txtContract_valueBinding);
+                txtContract_date.SetBinding(TextBox.TextProperty, txtContract_dateBinding);
             }
         }
 
@@ -243,7 +277,7 @@ namespace Farcas_Viorel_Lab5
         {
             //using System.ComponentModel
             ICollectionView navigationView =
-           CollectionViewSource.GetDefaultView(phoneNumbersDataSet.PhoneNumbers)
+           CollectionViewSource.GetDefaultView(phoneNumbersDataSet.PhoneNumbers);
             navigationView.MoveCurrentToPrevious();
         }
 
@@ -256,4 +290,4 @@ namespace Farcas_Viorel_Lab5
     }
 }
 
-//l5
+//upload tema

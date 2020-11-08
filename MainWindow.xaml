@@ -6,22 +6,26 @@
         xmlns:local="clr-namespace:Farcas_Viorel_Lab5"
         mc:Ignorable="d"
         Title="Phone Subscribers Management" Height="450" Width="800" Loaded="frmMain_Loaded">
-    
+
     <Window.Resources>
         <DataTemplate x:Key="PhoneNumbersTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{Binding Phonenum}" Grid.Column="0"/>
                 <TextBlock Text="{Binding Subscriber}" Grid.Column="1"/>
+                <TextBlock Text="{Binding Contract_value}" Grid.Column="2"/>
+                <TextBlock Text="{Binding Contract_date}" Grid.Column="3"/>
             </Grid>
         </DataTemplate>
         <local:PhoneNumbersDataSet x:Key="phoneNumbersDataSet"/>
         <CollectionViewSource x:Key="phoneNumbersViewSource" Source="{Binding PhoneNumbers, Source={StaticResource phoneNumbersDataSet}}"/>
     </Window.Resources>
-    
+
     <Grid x:Name="grdMain" Loaded="grdMain_Loaded">
         <Button x:Name="btnNew" Content="New" Margin="37,35,699,373" Click="btnNew_Click"/>
         <Button x:Name="btnEdit" Content="Edit" Margin="37,76,699,332" Click="btnEdit_Click"/>
@@ -36,6 +40,10 @@
         <Label x:Name="lblSubscriber" Content="Subscriber:" Margin="305,326,427,77"/>
         <TextBox x:Name="txtPhoneNumber" TextWrapping="Wrap" IsEnabled="False" Margin="435,297,168,112" Text="{Binding Path=Phonenum}"/>
         <TextBox x:Name="txtSubscriber" TextWrapping="Wrap" IsEnabled="False" Margin="435,328,168,80" Text="{Binding Path=Subscriber}"/>
+        <Label x:Name="lblContract_value" Content="Contract value:" Margin="37,297,569,112"/>
+        <Label x:Name="lblContract_date" Content="Contract date:" Margin="37,324,683,80"/>
+        <TextBox x:Name="txtContract_value" TextWrapping="Wrap" Margin="155,297,550,111" IsEnabled="False" Text="{Binding Path=Contract_value}"/>
+        <TextBox x:Name="txtContract_date" TextWrapping="Wrap" Margin="155,331,550,77" IsEnabled="False" Text="{Binding Path=Contract_date}"/>
 
     </Grid>
 </Window>
